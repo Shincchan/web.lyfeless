@@ -34,15 +34,15 @@ passport.deserializeUser(function(id,done){
     })
 })
 passport.checkAuthentication=function(req,res,next){
-    if(req.isAuthenticated){
+    if(req.isAuthenticated()){
         return next();
     }
     return res.redirect('/users/sign-in');
 }
-passport.setAuthenticatesUser=function(req,res,next){
-    if(req.authenticated()){
-        res.local.user=req.user;
+passport.setAuthenticatedUser=function(req,res,next){
+    if(req.isAuthenticated()){
+        res.locals.user=req.user;
     }
-}
-
+    next(); 
+} 
 module.exports=passport; 
