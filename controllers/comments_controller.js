@@ -20,7 +20,7 @@ module.exports.create=function(req,res){
                  }
                  else{
                     
-                    post.comments.push(comment._id);
+                    post.comments.push(comment);
                     post.save();
                    res.redirect('/');
                  }

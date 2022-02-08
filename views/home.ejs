@@ -13,8 +13,8 @@
              
                 <li>
                   
-                   <h3><%=post.user.name%>:-</h3>
-                   <h5> <%=post.content%></h5>
+                   <h3 style="display: inline-block;"><%=post.user.name%>:-</h3>
+                   <span> <%=post.content%><span>
                    <div class="post-comments">
                        <%if(locals.user){%>
                             <form action="/comments/create" method="POST">
@@ -23,6 +23,14 @@
                                 <button type="submit">Add</button>
                             </form>
                     <%}%>
+                    <div class="post-comments-list" >
+                        <ul id="post-comments-<%=post._id%>">
+                            <%for(comment of post.comments){%>
+                                <li><%= comment.content %>:  <%= comment.user.name %></li>    
+                            <%}%>
+
+                        </ul>
+                    </div>
                    </div>
                 </li>
              <%}%>
