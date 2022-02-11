@@ -1,5 +1,5 @@
+
 const User=require('../models/user');
-const Post=require('../models/post');
 module.exports.profile=function(req,res){
     User.findById(req.params.id,function(err,user){
         return res.render("users",{
@@ -8,6 +8,16 @@ module.exports.profile=function(req,res){
         });
     })
    
+}
+module.exports.update=function(req,res){
+    if(req.user.id==req.params.id){
+        User.findByIdAndUpdate(req.params.id,{name:req.body.name,email:req.body.email},function(err,user){
+            return res.redirect('back');
+        })
+    }
+    else{
+        return res.status(401).send('unauthorized');
+    }
 }
 module.exports.signUp=function(req,res){
    if(req.isAuthenticated()){
