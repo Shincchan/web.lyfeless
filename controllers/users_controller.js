@@ -1,9 +1,13 @@
 const User=require('../models/user');
 const Post=require('../models/post');
 module.exports.profile=function(req,res){
-    return res.render("users",{
-        title:"profile"
-    });
+    User.findById(req.params.id,function(err,user){
+        return res.render("users",{
+            title:"profile",
+            profile_user:user
+        });
+    })
+   
 }
 module.exports.signUp=function(req,res){
    if(req.isAuthenticated()){
