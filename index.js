@@ -10,6 +10,8 @@ const passportLocal=require('./config/passport-local-strategy');
 const expressLayouts = require('express-ejs-layouts');
 const mongoStore=require('connect-mongodb-session')(session);
 const sasssMiddleware=require('node-sass-middleware');
+const flash =require('connect-flash');
+const customMware=require('./config/middleware');
 app.use(sasssMiddleware({
     src:'./assets/scss',
     dest:'./assets/css',
@@ -50,6 +52,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+app.use(flash());
+app.use(customMware.setFlash);
 app.use('/',require('./routes'));
 // app.use('/users',require('./routes/users'));
 app.listen(port,function(err){
