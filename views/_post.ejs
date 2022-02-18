@@ -1,17 +1,15 @@
-<li>
+<li id="post-<%=post._id%>">
                    
     <%if( (locals.user) && (locals.user.id==post.user.id) ){%>
 <small>
-        
-        <a href="/posts/destroy/<%=post.id%>">delete</a>
-    
+    <a class="delete-post-button" href="/posts/destroy/<%=post.id%>">delete</a>
 </small>
 <%}%>
 <h3 style="display: inline-block;"><%=post.user.name%>:-</h3>
 <span> <%=post.content%><span>
 <div class="post-comments">
    <%if(locals.user){%>
-        <form action="/comments/create" method="POST">
+        <form action="/comments/create" id="new-comment-form" method="POST">
             <input type="text" name="content" placeholder="type here to comment...">
             <input type="hidden" name="post" value="<%=post._id%>">
             <button type="submit">Add</button>
@@ -20,20 +18,8 @@
 <div class="post-comments-list" >
     <ul id="post-comments-<%=post._id%>">
         <%for(comment of post.comments){%>
-            <li><%= comment.content %>:  <%= comment.user.name %>
-
-                <%if( locals.user) {%>
-                    <%if( (locals.user.id==comment.user.id)||(locals.user.id==post.user.id)){%>
-                <small>
-                          
-                          <a href="/comments/destroy/<%=comment.id%>/<%=post.user.id%>">delete</a>
-                      
-                </small>
-                <%}%>
-                <%}%>
-            </li>    
+            <%-include('_comment.ejs')-%>
         <%}%>
-        
     </ul>
 </div>
 </div>

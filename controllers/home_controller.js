@@ -9,6 +9,7 @@ try{
         //     });
         //    });
         let posts= await Post.find({})
+        .sort('-createdAt')
         .populate('user')
         .populate({
             path:'comments',
@@ -16,7 +17,7 @@ try{
                 path:'user'
             }
         });
-        
+       
         let users = await User.find({});
         
         return  res.render('home',{
